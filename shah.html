@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صدای ایران - حقیقت، دادخواهی، آزادی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --iran-green: #16a34a;
+      --iran-red: #ef0b2d;
+      --ink: #f8fafc;
+      --muted: rgba(248, 250, 252, 0.76);
+      --paper: #f8fafc;
+      --paper-2: rgba(255, 255, 255, 0.06);
+      --border: rgba(248, 250, 252, 0.14);
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background:
+        radial-gradient(900px 500px at 70% -10%, rgba(239, 11, 45, 0.16), transparent 60%),
+        radial-gradient(900px 500px at 20% 10%, rgba(22, 163, 74, 0.10), transparent 62%),
+        linear-gradient(180deg, #05060a 0%, #0a0f1a 55%, #070a10 100%);
+      color: var(--ink);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Scroll Progress Bar */
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--iran-green), var(--iran-red));
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    /* Navigation */
+    nav {
+      position: relative;
+      z-index: 999;
+      background: rgba(7, 10, 16, 0.68);
+      backdrop-filter: blur(20px);
+      border-top: 4px solid var(--iran-green);
+      border-bottom: 2px solid var(--iran-red);
+      padding: 1rem 0;
+    }
+
+    nav::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -18px;
+      height: 22px;
+      background:
+        radial-gradient(circle at 6% 0, rgba(239, 11, 45, 0.92) 0 10px, transparent 11px),
+        radial-gradient(circle at 18% 0, rgba(239, 11, 45, 0.92) 0 8px, transparent 9px),
+        radial-gradient(circle at 33% 0, rgba(239, 11, 45, 0.92) 0 12px, transparent 13px),
+        radial-gradient(circle at 52% 0, rgba(239, 11, 45, 0.92) 0 9px, transparent 10px),
+        radial-gradient(circle at 68% 0, rgba(239, 11, 45, 0.92) 0 11px, transparent 12px),
+        radial-gradient(circle at 84% 0, rgba(239, 11, 45, 0.92) 0 7px, transparent 8px),
+        radial-gradient(circle at 95% 0, rgba(239, 11, 45, 0.92) 0 10px, transparent 11px);
+      filter: drop-shadow(0 12px 25px rgba(239, 11, 45, 0.35));
+      pointer-events: none;
+    }
+
+    @keyframes slideDown {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      font-size: 3rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .logo .emblem {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
+      filter: contrast(1.08);
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo .brand {
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .logo .slogan {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--iran-red);
+      letter-spacing: 0;
+      text-shadow: 0 10px 30px rgba(239, 11, 45, 0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      color: var(--iran-red);
+    }
+
+    /* Section Base */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      z-index: 10;
+      position: relative;
+    }
+
+    section .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    section .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(7,10,16,0.58), rgba(7,10,16,0.78), rgba(7,10,16,0.92));
+      z-index: 1;
+    }
+
+    /* Hero Section */
+    #hero {
+      position: relative;
+      align-items: flex-start;
+      padding-top: 8.25rem;
+      padding-bottom: 4rem;
+      margin-top: 2.5rem;
+    }
+
+    #hero .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    #hero .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(7,10,16,0.25), rgba(7,10,16,0.72), rgba(7,10,16,0.92));
+      z-index: 1;
+    }
+
+    .hero-content {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      margin-bottom: 2rem;
+      line-height: 1.2;
+      color: var(--ink);
+      text-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-content p {
+      font-size: 2rem;
+      font-weight: 500;
+      color: rgba(248, 250, 252, 0.86);
+      margin-bottom: 3rem;
+    }
+
+    .cta-button {
+      background: var(--iran-red);
+      color: var(--paper);
+      padding: 1.25rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 14px 44px rgba(239, 11, 45, 0.35);
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .cta-button:hover {
+      background: #b91c1c;
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(214, 40, 40, 0.35);
+    }
+
+    .cta-button.secondary {
+      background: rgba(22, 163, 74, 0.10);
+      color: rgba(248, 250, 252, 0.92);
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      box-shadow: none;
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(22, 163, 74, 0.14);
+      transform: scale(1.05);
+      box-shadow: none;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .copy-hint {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .slogans-row {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: -1rem 0 1.75rem;
+    }
+
+    .slogan-chip {
+      background: rgba(7, 10, 16, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--ink);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .slogan-chip.green {
+      border-color: rgba(10, 125, 59, 0.28);
+      color: var(--iran-green);
+    }
+
+    .slogan-chip.red {
+      border-color: rgba(214, 40, 40, 0.25);
+      color: var(--iran-red);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 2.25rem;
+    }
+
+    .gallery-item {
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(7, 10, 16, 0.55);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 46px rgba(17, 24, 39, 0.12);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-marquee {
+      margin-top: 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(7, 10, 16, 0.45);
+      overflow: hidden;
+    }
+
+    .gallery-marquee .track {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.85rem;
+      width: max-content;
+      animation: marquee 26s linear infinite;
+    }
+
+    .gallery-marquee:hover .track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .gallery-thumb {
+      width: 110px;
+      height: 72px;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      flex: 0 0 auto;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: min(1100px, 95vw);
+      max-height: 85vh;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 22px 90px rgba(0, 0, 0, 0.45);
+      background: #000;
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    .scroll-indicator svg {
+      width: 48px;
+      height: 48px;
+      color: var(--iran-red);
+    }
+
+    /* Why Section */
+    #why {
+      background: rgba(7, 10, 16, 0.20);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-title p {
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .media-frame {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(7, 10, 16, 0.55);
+      backdrop-filter: blur(10px);
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05);
+    }
+
+    .text-block {
+      background: rgba(7, 10, 16, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .text-block h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .text-block p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.15rem;
+    }
+
+    .lang-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1.25rem 0;
+    }
+
+    .sources-list {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .source-item {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      background: rgba(7, 10, 16, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .source-item:hover {
+      transform: translateY(-6px);
+      border-color: rgba(10, 125, 59, 0.35);
+    }
+
+    .source-item .title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .source-item .desc {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: rgba(7, 10, 16, 0.55);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .card.visible {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotate(1deg);
+      border-color: rgba(214, 40, 40, 0.35);
+    }
+
+    .card svg {
+      width: 64px;
+      height: 64px;
+      color: var(--iran-red);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Demands Section */
+    #demands {
+      position: relative;
+    }
+
+    #demands .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    #demands .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 16, 0.86);
+      z-index: 1;
+    }
+
+    .demands-list {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .demand-item {
+      background: linear-gradient(to left, rgba(10, 125, 59, 0.10), transparent);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border-right: 4px solid var(--iran-green);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.3s ease;
+    }
+
+    .demand-item.visible {
+      animation: slideInRight 0.6s ease forwards;
+    }
+
+    @keyframes slideInRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .demand-item:hover {
+      transform: translateX(10px);
+    }
+
+    .demand-number {
+      background: var(--iran-red);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      color: var(--paper);
+    }
+
+    .demand-item p {
+      font-size: 1.25rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      position: relative;
+    }
+
+    #contact .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    #contact .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(7,10,16,0.92), rgba(7,10,16,0.78), rgba(7,10,16,0.28));
+      z-index: 1;
+    }
+
+    .contact-content {
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stat-box {
+      background: rgba(7, 10, 16, 0.55);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .stat-box.visible {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--iran-red);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer .logo {
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Section Indicators */
+    .section-indicators {
+      position: fixed;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(17, 24, 39, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .indicator:hover {
+      background: var(--iran-red);
+    }
+
+    .indicator.active {
+      background: var(--iran-green);
+      transform: scale(1.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+
+      .hero-content p {
+        font-size: 1.25rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-indicators {
+        display: none;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .media-frame img {
+        height: 420px;
+      }
+    }
+
+    /* SVG Icons */
+    .icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div id="scrollProgress"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo" onclick="scrollToSection('hero')">
+        <img class="emblem" src="image/shah.jpeg" alt="شیر و خورشید">
+        <span class="brand">ایران</span>
+        <span class="slogan">نه به سرکوب، آری به آزادی</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <img src="image/shah2.jpeg" alt="اعتراض" class="bg-image" id="heroImage">
+    <div class="overlay"></div>
+    <div class="container hero-content">
+      <h1>ایران تنها نیست</h1>
+      <p>جهان باید بداند: سرکوب، بازداشت، و جان‌باختنِ شهروندان نباید پنهان بماند</p>
+      <div class="slogans-row">
+        <div class="slogan-chip red">زن، زندگی، آزادی</div>
+        <div class="slogan-chip green">مرد، میهن، آبادی</div>
+      </div>
+      <div class="cta-row">
+        <button class="cta-button" onclick="scrollToSection('stories')">روایت‌ها و تصویرها</button>
+        <button class="cta-button secondary" onclick="scrollToSection('sources')">منابع و گزارش‌ها</button>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Why Section -->
+  <section id="why">
+    <img src="image/shah3.jpeg" alt="ایران" class="bg-image">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>چرا باید صدایمان را بلند کنیم؟</h2>
+        <p>سکوت، حقیقت را دفن می‌کند. اطلاع‌رسانی، جان‌ها را نجات می‌دهد.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <h3>آزادی بیان</h3>
+          <p>حق ما است که نظرات خود را آزادانه بیان کنیم بدون ترس از سرکوب</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>عدالت اجتماعی</h3>
+          <p>همه افراد جامعه حق دارند از فرصت‌های برابر و عادلانه برخوردار شوند</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>نه به سرکوب</h3>
+          <p>بازداشت، تهدید و خشونت علیه شهروندان باید متوقف شود. صدای قربانیان را بلندتر کنیم.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>دادخواهی</h3>
+          <p>برای جان‌باختگان و آسیب‌دیدگان، حقیقت و پاسخگویی لازم است؛ فراموش نمی‌کنیم.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11V8a3 3 0 1 1 6 0v3"/>
+            <path d="M9 11v7a3 3 0 0 0 6 0v-7"/>
+            <circle cx="12" cy="11" r="8"/>
+          </svg>
+          <h3>آیندهٔ آزاد</h3>
+          <p>خواست ما: آزادی، امنیت، و کرامت انسانی برای همه—بدون تبعیض و بدون ترس.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stories">
+    <img src="image/shah4.jpeg" alt="ایران" class="bg-image">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>روایت‌ها و تصویرها</h2>
+        <p>برای یادآوری، برای دادخواهی، برای اینکه جهان فراموش نکند</p>
+      </div>
+
+      <div class="two-col">
+        <div class="media-frame">
+          <img src="image/shah1.jpeg" alt="یاد قربانیان">
+        </div>
+        <div class="text-block">
+          <h3>صدای مردم ایران</h3>
+          <p>
+            این صفحه برای اطلاع‌رسانی درباره سرکوب و نقض حقوق بشر در ایران طراحی شده است.
+            اگر می‌خواهید جهان باخبر شود، روایت‌ها و منابع معتبر را به اشتراک بگذارید.
+          </p>
+          <div class="lang-divider"></div>
+          <p dir="ltr" style="text-align:left;">
+            This page documents human rights violations in Iran. Share verified reports and testimonies so the world cannot look away.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('image/shah.jpeg')"><img loading="lazy" src="image/shah.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/shah1.jpeg')"><img loading="lazy" src="image/shah1.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/shah2.jpeg')"><img loading="lazy" src="image/shah2.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/shah3.jpeg')"><img loading="lazy" src="image/shah3.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/shah4.jpeg')"><img loading="lazy" src="image/shah4.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/%23iran.jpeg')"><img loading="lazy" src="image/%23iran.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/download.jpeg')"><img loading="lazy" src="image/download.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/download%20(1).jpeg')"><img loading="lazy" src="image/download%20(1).jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/download%20(2).jpeg')"><img loading="lazy" src="image/download%20(2).jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/Iran%20Revolution.jpeg')"><img loading="lazy" src="image/Iran%20Revolution.jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/Iran%20Revolution%20(1).jpeg')"><img loading="lazy" src="image/Iran%20Revolution%20(1).jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/javidshah%20(1).jpeg')"><img loading="lazy" src="image/javidshah%20(1).jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/javidshah%20(2).jpeg')"><img loading="lazy" src="image/javidshah%20(2).jpeg" alt="تصویر"></div>
+        <div class="gallery-item" onclick="openLightbox('image/javidshah%20(3).jpeg')"><img loading="lazy" src="image/javidshah%20(3).jpeg" alt="تصویر"></div>
+      </div>
+
+      <div class="gallery-marquee" aria-label="گالری تصاویر">
+        <div class="track">
+          <div class="gallery-thumb" onclick="openLightbox('image/shah.jpeg')"><img loading="lazy" src="image/shah.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah1.jpeg')"><img loading="lazy" src="image/shah1.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah2.jpeg')"><img loading="lazy" src="image/shah2.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah3.jpeg')"><img loading="lazy" src="image/shah3.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah4.jpeg')"><img loading="lazy" src="image/shah4.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/%23iran.jpeg')"><img loading="lazy" src="image/%23iran.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download.jpeg')"><img loading="lazy" src="image/download.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download%20(1).jpeg')"><img loading="lazy" src="image/download%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download%20(2).jpeg')"><img loading="lazy" src="image/download%20(2).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/Iran%20Revolution.jpeg')"><img loading="lazy" src="image/Iran%20Revolution.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/Iran%20Revolution%20(1).jpeg')"><img loading="lazy" src="image/Iran%20Revolution%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(1).jpeg')"><img loading="lazy" src="image/javidshah%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(2).jpeg')"><img loading="lazy" src="image/javidshah%20(2).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(3).jpeg')"><img loading="lazy" src="image/javidshah%20(3).jpeg" alt="تصویر"></div>
+
+          <div class="gallery-thumb" onclick="openLightbox('image/shah.jpeg')"><img loading="lazy" src="image/shah.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah1.jpeg')"><img loading="lazy" src="image/shah1.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah2.jpeg')"><img loading="lazy" src="image/shah2.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah3.jpeg')"><img loading="lazy" src="image/shah3.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/shah4.jpeg')"><img loading="lazy" src="image/shah4.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/%23iran.jpeg')"><img loading="lazy" src="image/%23iran.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download.jpeg')"><img loading="lazy" src="image/download.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download%20(1).jpeg')"><img loading="lazy" src="image/download%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/download%20(2).jpeg')"><img loading="lazy" src="image/download%20(2).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/Iran%20Revolution.jpeg')"><img loading="lazy" src="image/Iran%20Revolution.jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/Iran%20Revolution%20(1).jpeg')"><img loading="lazy" src="image/Iran%20Revolution%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(1).jpeg')"><img loading="lazy" src="image/javidshah%20(1).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(2).jpeg')"><img loading="lazy" src="image/javidshah%20(2).jpeg" alt="تصویر"></div>
+          <div class="gallery-thumb" onclick="openLightbox('image/javidshah%20(3).jpeg')"><img loading="lazy" src="image/javidshah%20(3).jpeg" alt="تصویر"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demands Section -->
+  <section id="demands">
+    <img src="image/shah.jpeg" alt="ایران" class="bg-image">
+    <div class="overlay"></div>
+    <div class="container">
+    </div>
+  </section>
+
+  <section id="sources">
+    <img src="image/download.jpeg" alt="ایران" class="bg-image">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="section-title">
+        <h2>فریادِ آزادی</h2>
+        <p>اطلاع‌رسانیِ دقیق و قابل راستی‌آزمایی، اثرگذارترین شکلِ اعتراض است</p>
+      </div>
+
+      <div class="sources-list">
+        <a class="source-item" href="#" onclick="return false;">
+          <div class="title">گزارش‌های حقوق بشری</div>
+          <div class="desc">لینک گزارش‌های معتبر و قابل بررسی را اینجا قرار دهید</div>
+        </a>
+        <a class="source-item" href="#" onclick="return false;">
+          <div class="title">روایت‌های قابل راستی‌آزمایی</div>
+          <div class="desc">روایت‌ها را بدون اطلاعات شخصی و با جزئیات قابل بررسی منتشر کنید</div>
+        </a>
+        <a class="source-item" href="#" onclick="return false;">
+          <div class="title">فشار بین‌المللی</div>
+          <div class="desc">ترجمه و انتشار لینک‌ها به زبان‌های دیگر برای آگاهی جهانی</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <img src="image/shah2.jpeg" alt="همبستگی" class="bg-image">
+    <div class="overlay"></div>
+    <div class="container contact-content">
+      <h2 style="font-size: 4rem; font-weight: 800; margin-bottom: 2rem;">به اشتراک بگذارید</h2>
+      <p style="font-size: 1.5rem; color: var(--muted); margin-bottom: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+        اگر امنیت‌تان در خطر است، اطلاعات شخصی منتشر نکنید. فقط لینک منابع معتبر و روایت‌های قابل راستی‌آزمایی را منتشر کنید.
+      </p>
+      <div class="cta-row">
+        <button class="cta-button" style="padding: 1.5rem 3.5rem; font-size: 1.25rem;" onclick="sharePage()">اشتراک‌گذاری</button>
+        <button class="cta-button secondary" style="padding: 1.5rem 3.5rem; font-size: 1.25rem;" onclick="copyLink()">کپی لینک</button>
+      </div>
+      <div class="copy-hint" id="copyHint"></div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="close" type="button" onclick="closeLightbox(event)">×</button>
+    <img id="lightboxImage" src="" alt="تصویر">
+  </div>
+
+  <script>
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // Parallax Effect for Background Images
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+
+      document.querySelectorAll('section .bg-image').forEach((img) => {
+        const section = img.closest('section');
+        if (!section) return;
+
+        const offset = scrolled - section.offsetTop;
+        const limited = Math.min(Math.abs(offset), 1400);
+        const scale = 1 + limited * 0.00015;
+
+        img.style.transform = `scale(${scale}) translateY(${offset * 0.35}px)`;
+
+        if (img.id === 'heroImage') {
+          const heroOpacity = 1 - Math.min(scrolled, 800) * 0.001;
+          img.style.opacity = Math.max(0.35, heroOpacity);
+        }
+      });
+    });
+
+    // Intersection Observer for Cards
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    document.querySelectorAll('.demand-item').forEach(item => observer.observe(item));
+    document.querySelectorAll('.stat-box').forEach(box => observer.observe(box));
+
+    // Section Indicators
+    const sections = document.querySelectorAll('section');
+    const indicators = document.querySelectorAll('.indicator');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      indicators.forEach(indicator => {
+        indicator.classList.remove('active');
+        if (indicator.getAttribute('data-section') === current) {
+          indicator.classList.add('active');
+        }
+      });
+    });
+
+    // Click indicators to scroll
+    indicators.forEach(indicator => {
+      indicator.addEventListener('click', () => {
+        const section = indicator.getAttribute('data-section');
+        document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Scroll to section function
+    function scrollToSection(sectionId) {
+      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Nav links smooth scroll
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        scrollToSection(targetId);
+      });
+    });
+
+    function copyLink() {
+      const url = window.location.href;
+      const hint = document.getElementById('copyHint');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url)
+          .then(() => {
+            hint.textContent = 'لینک کپی شد.';
+          })
+          .catch(() => {
+            hint.textContent = 'کپی خودکار ممکن نبود. لینک را دستی کپی کنید: ' + url;
+          });
+      } else {
+        hint.textContent = 'کپی خودکار ممکن نیست. لینک را دستی کپی کنید: ' + url;
+      }
+    }
+
+    function sharePage() {
+      const data = {
+        title: document.title,
+        text: 'Iran: Human rights, truth, and accountability. Please read and share verified reports.',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        navigator.share(data).catch(() => {});
+      } else {
+        copyLink();
+      }
+    }
+
+    function openLightbox(src) {
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImage');
+      img.src = src;
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImage');
+      box.classList.remove('open');
+      img.src = '';
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const box = document.getElementById('lightbox');
+        if (box && box.classList.contains('open')) {
+          closeLightbox(e);
+        }
+      }
+    });
+
+    // Add delay to card animations
+    document.querySelectorAll('.card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+    });
+
+    document.querySelectorAll('.demand-item').forEach((item, index) => {
+      item.style.animationDelay = `${index * 0.1}s`;
+    });
+
+    document.querySelectorAll('.stat-box').forEach((box, index) => {
+      box.style.animationDelay = `${index * 0.2}s`;
+    });
+  </script>
+</body>
+</html>
